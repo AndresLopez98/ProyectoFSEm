@@ -1,0 +1,47 @@
+
+ 
+ 
+<!DOCTYPE html>
+   <head>
+      <title>PROYECTO FINAL</title>
+      <link rel="stylesheet" href='../static/clr.css'/>
+   </head>
+ 
+   <body>
+        <h1 align=center>SMART HOME</h1>
+    
+        <br>
+         
+        <h2> CONTROL DE ILUMINACIÓN </h2>
+         
+        <h3> FOCO SALA    Estatus {{ FOCO1  }}
+            {% if  FOCO1   == 1 %}
+                <a href="/FOCO1/apagado"class="button">APAGA</a>
+            {% else %}
+                <a href="/FOCO1/encendido" class="button">ENCIENDE</a> 
+            {% endif %} 
+        </h3>
+         
+        <h3> FOCO COCINA    Estatus {{ FOCO2  }}
+            {% if  FOCO2   == 1 %}
+                <a href="/FOCO2/apagado"class="button">APAGA</a>
+            {% else %}
+                <a href="/FOCO2/encendido" class="button">ENCIENDE</a> 
+            {% endif %} 
+        </h3>
+
+        <h4> 
+
+            <h2> STREAMING </h2>
+            <a href="/menu_camara"class="button">ACTIVAR CÁMARA</a>
+
+        </h4>
+<!-- 
+        <img src="{{url_for('static', filename='foco.jpg')}}"
+        align = "middle" /> -->
+
+
+         
+         
+   </body>
+</html>

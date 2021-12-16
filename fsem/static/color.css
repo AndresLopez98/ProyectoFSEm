@@ -1,0 +1,17 @@
+
+body {
+    background: lightblue;
+    color: black;
+}
+ 
+.button {
+  font: bold 10px Arial;
+  text-decoration: none;
+  background-color: # D3D3D3;
+  color: #A0522D;
+  padding: 2px 4px 2px 4px;
+  border-top: 1px solid #FFF8DC;
+  border-right: 1px solid #FFF8DC;
+  border-bottom: 1px solid #FFF8DC;
+  border-left: 1px solid #FDFEFE;
+}
