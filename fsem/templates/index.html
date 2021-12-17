@@ -1,6 +1,5 @@
-
- 
- 
+<!-- Author: López Andrés
+License: MIT -->
 <!DOCTYPE html>
    <head>
       <title>PROYECTO FINAL</title>
@@ -12,9 +11,9 @@
     
         <br>
          
-        <h2> CONTROL DE ILUMINACIÓN </h2>
+        <h2 align=center> CONTROL DE ILUMINACIÓN </h2>
          
-        <h3> FOCO SALA    Estatus {{ FOCO1  }}
+        <h3 align=center> FOCO SALA    Estatus {{ FOCO1  }}
             {% if  FOCO1   == 1 %}
                 <a href="/FOCO1/apagado"class="button">APAGA</a>
             {% else %}
@@ -22,18 +21,19 @@
             {% endif %} 
         </h3>
          
-        <h3> FOCO COCINA    Estatus {{ FOCO2  }}
+        <h3 align=center> FOCO COCINA   Estatus {{ FOCO2  }}
             {% if  FOCO2   == 1 %}
                 <a href="/FOCO2/apagado"class="button">APAGA</a>
             {% else %}
                 <a href="/FOCO2/encendido" class="button">ENCIENDE</a> 
             {% endif %} 
         </h3>
-
+        <br>
         <h4> 
 
-            <h2> STREAMING </h2>
+            <h2 align=center> STREAMING 
             <a href="/menu_camara"class="button">ACTIVAR CÁMARA</a>
+            </h2>
 
         </h4>
 
@@ -42,38 +42,45 @@
              <form method="POST" action="test"> -->
 
         </h5>
-
-        <h3> DESLIZAR IZQ Y DER   
+        <br>
+        <h2  align=center> APERTURA DE PUERTA  
         <form method = 'POST'>
-        <div class="rangeslider"> 
-        <input type="range" min="1" max="10" value="5" class="myslider" id="sliderRange"> 
+        <div class="barra_desliza"> 
+        <input type="range" min="2" max="4" value="3" class="barrita" id="RanDesliza"> 
+
+
         <p>
-            <span id="demo"></span>
+            <span id="prueb"></span>
         </p> 
+
     </div> 
         
-        <script> 
-            const Http = new XMLHttpRequest();
-            var rangeslider = document.getElementById("sliderRange"); 
-            var output = document.getElementById("demo"); 
-            var edoPuerta;
-                        
-            rangeslider.oninput = function() {
+        <script>   
+            const Http = new XMLHttpRequest();  //Se leen los datos y con document se toma la referencia id del contenedor
+             var edoPuerta;
+            var barra_desliza = document.getElementById("RanDesliza"); 
+            var output = document.getElementById("prueb"); 
+            
+            // se imprime el estado de la puerta dependiendo la posición de la barra deslizante            
+            barra_desliza.oninput = function() {
                 edoPuerta = this.value;
                 
-                if (edoPuerta < 4){
+                if (edoPuerta <= 2){
                     output.innerHTML = 'Empujando puerta';
                     edoPuerta = 'Empujando puerta'
+                    
                     }
-                else if (edoPuerta >= 5 && edoPuerta <= 6){
+                else if (edoPuerta == 3){
                     output.innerHTML = 'Puerta cerrada';
                     edoPuerta = 'Puerta cerrada'  
+                    
                 }
-                else if (edoPuerta > 7){
+                else if (edoPuerta >= 4){
                     output.innerHTML = 'Jalando puerta';
                     edoPuerta = 'Jalando puerta'
+                
                 }
-                Http.open('POST', '/desliza')
+                Http.open('POST', '/desliza') //Con este comando se imprime en la consola el estado de la puerta 
                 Http.send(edoPuerta)
             }
 
@@ -81,14 +88,24 @@
 
 
     </form>  
-
-            <p>   <!-- <input type="range" min="1" max="7" name="ControlPuerta" /> </p>
+        </h2>
+        <br>
+        <h2 align=center> TIMBRE </h2>
+         
+        <h3 align=center> {{ buzzer  }}
+            {% if  buzzer   == 1 %}
+                <a href="/buzzer/apagado"class="button">toca</a>
+            {% else %}
+                <a href="/buzzer/encendido" class="button">TOCAR TIMBRE</a> 
+            {% endif %} 
+        </h3>
+        
+             <!-- <input type="range" min="1" max="7" name="ControlPuerta" /> </p>
             <input type="submit" value="ABRE/CIERRA" /> -->
 
 
 
-        </h3>
-
+    
 
              <!-- </form> -->
 <!-- 
