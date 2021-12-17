@@ -1,8 +1,9 @@
 import sys
 import RPi.GPIO as GPIO #Se importa la librería RPi.GPIO
-from flask import Flask, render_template, Response #Response  sirve para recibir las imágenes desde la cámara web
+from flask import Flask, render_template, Response, request #Response  sirve para recibir las imágenes desde la cámara web
 import cv2 #Para la cámara
 from camera import Camera
+from time import sleep
 
 app = Flask(__name__)
 
@@ -25,11 +26,15 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 FOCO1 = 29
 FOCO2 = 31
-
- 
+servo = 26
 #DEFINIR LEDS COMO SALIDAS.
 GPIO.setup(FOCO1, GPIO.OUT)   
 GPIO.setup(FOCO2, GPIO.OUT) 
+GPIO.setup(servo, GPIO.OUT) 
+
+pwm = GPIO.PWM(servo, 40) #canal PWM con frecuencia de 40 Hz
+pwm.start(0) #Ciclo de trabajo inicializado en cero
+
 
 #LEDS APAGADOS 
 GPIO.output(FOCO1, GPIO.LOW)
@@ -49,6 +54,29 @@ def index():
             'FOCO2'  : EstadoFOCO2,
         }
     return render_template('index.html', **edoFOCO)
+
+#Función apertura de puertas
+
+
+@app.route('/index', methods=['POST', 'GET'])
+def index():
+    if request.method == 'POST':
+        edoPuerta = request.form['edoPuerta']
+        pwm.ChangeDutyCycle(float(edoPuerta))
+        print(edoPuerta)
+        sleep(1)
+        pwm(ChangeDutyCycle(0))
+        return render_template('index.html')
+
+    return render_template('index.html')
+
+#Esta función sirve para saber el estatus de la barra deslizante en la consola
+@app.route('/desliza', methods=['POST', 'GET'])
+def slider():
+    received_data = request.data
+    print(received_data)
+    return received_data
+
 
 #Función para la cámara y ruta /menu_camara
 def gen(camera):
@@ -84,7 +112,8 @@ def modo(dispositivo, modo):
 
     edoFOCO = {
         'FOCO1'  : EstadoFOCO1,
-        'FOCO2'  : EstadoFOCO2,      
+        'FOCO2'  : EstadoFOCO2,
+
     }
     return render_template('index.html', **edoFOCO)
  

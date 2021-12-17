@@ -36,6 +36,61 @@
             <a href="/menu_camara"class="button">ACTIVAR CÁMARA</a>
 
         </h4>
+
+        <h5> 
+            <!-- <h2>ABRIR Y CERRAR PUERTAS </h2>
+             <form method="POST" action="test"> -->
+
+        </h5>
+
+        <h3> DESLIZAR IZQ Y DER   
+        <form method = 'POST'>
+        <div class="rangeslider"> 
+        <input type="range" min="1" max="10" value="5" class="myslider" id="sliderRange"> 
+        <p>
+            <span id="demo"></span>
+        </p> 
+    </div> 
+        
+        <script> 
+            const Http = new XMLHttpRequest();
+            var rangeslider = document.getElementById("sliderRange"); 
+            var output = document.getElementById("demo"); 
+            var edoPuerta;
+                        
+            rangeslider.oninput = function() {
+                edoPuerta = this.value;
+                
+                if (edoPuerta < 4){
+                    output.innerHTML = 'Empujando puerta';
+                    edoPuerta = 'Empujando puerta'
+                    }
+                else if (edoPuerta >= 5 && edoPuerta <= 6){
+                    output.innerHTML = 'Puerta cerrada';
+                    edoPuerta = 'Puerta cerrada'  
+                }
+                else if (edoPuerta > 7){
+                    output.innerHTML = 'Jalando puerta';
+                    edoPuerta = 'Jalando puerta'
+                }
+                Http.open('POST', '/desliza')
+                Http.send(edoPuerta)
+            }
+
+        </script> 
+
+
+    </form>  
+
+            <p>   <!-- <input type="range" min="1" max="7" name="ControlPuerta" /> </p>
+            <input type="submit" value="ABRE/CIERRA" /> -->
+
+
+
+        </h3>
+
+
+             <!-- </form> -->
 <!-- 
         <img src="{{url_for('static', filename='foco.jpg')}}"
         align = "middle" /> -->
